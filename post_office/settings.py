@@ -1,3 +1,4 @@
+import datetime
 import warnings
 
 from django.conf import settings
@@ -94,6 +95,14 @@ def get_sending_order():
 def get_template_engine():
     using = get_config().get('TEMPLATE_ENGINE', 'django')
     return template_engines[using]
+
+
+def get_max_retry():
+    return get_config().get('MAIL_MAX_RETRY', 0)
+
+
+def get_time_delta_to_retry():
+    return get_config().get('MAIL_RETRY_TIME_DELTA', datetime.timedelta(minutes=15))
 
 
 CONTEXT_FIELD_CLASS = get_config().get('CONTEXT_FIELD_CLASS',
